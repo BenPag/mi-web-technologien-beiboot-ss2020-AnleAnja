@@ -1,3 +1,12 @@
-body {
-  background-color: red;
+.quote--card {
+  max-width: 100%;
+  max-height: 100%;
+}
+
+.quote--text-box {
+  color: #000;
+  background-color: rgba(255, 255, 255, 0.5);
+  font-size: 2.5em;
+  line-height: 1.5;
+  text-align: center;
 }
