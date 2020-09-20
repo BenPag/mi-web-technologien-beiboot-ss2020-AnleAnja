@@ -4,6 +4,12 @@ import regeneratorRuntime from 'regenerator-runtime';
 import quotes from './quotes';
 import htmlBuilder from './htmlBuilder';
 
+function onDeviceorientationChange(event) {
+    console.log(event);
+}
+
+window.addEventListener('deviceorientation', onDeviceorientationChange, true);
+
 quotes.getQuoteOfTheDay()
     .then((qod) => {
         const qodCard = htmlBuilder.getHtmlCardOfQuote(qod);

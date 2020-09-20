@@ -1,5 +1,5 @@
 const httpClient = require('axios').default;
-import images from "./images";
+import images from './images';
 
 const useDummyApi = true;
 const apiBaseUrl = 'https://quotes.rest';
@@ -60,7 +60,7 @@ function QuoteOfTheDay({contents, copyright}, image) {
     }
 
     const quoteOfDay =  Object.assign({}, contents.quotes[0], copyright);
-    quoteOfDay.date = Date.parse(quoteOfDay.date);
+    quoteOfDay.date = new Date(quoteOfDay.date);
     quoteOfDay.background = image;
 
     return quoteOfDay;
