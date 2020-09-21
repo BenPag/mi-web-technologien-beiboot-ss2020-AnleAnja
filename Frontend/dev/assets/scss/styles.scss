@@ -1,3 +1,12 @@
+@import url('https://fonts.googleapis.com/css2?family=Barlow');
+@import 'mixins';
+
+@include margins;
+
+body {
+  font-family: 'Barlow', sans-serif;
+}
+
 .quote--card {
   max-width: 100%;
   max-height: 100%;
@@ -9,13 +18,23 @@
 
 .quote--text-box {
   line-height: 1.5;
-  text-align: center;
   position: relative;
   top: 50%;
   transform: translateY(-50%);
 }
 
+.quote--text-box p {
+  text-align: justify;
+}
+
+.date {
+  font-weight: 800;
+  text-align: center;
+}
+
 .author {
+  font-weight: bold;
+  text-align: right;
   font-style: italic;
 }
 
@@ -26,7 +45,9 @@
   }
 
   .quote--text-box {
-    font-size: 2.5vw;
+    width: 70%;
+    margin: 0 16%;
+    font-size: 2vw;
   }
 }
 
@@ -38,6 +59,8 @@
   }
 
   .quote--text-box {
-    font-size: 2.8vh;
+    width: 76%;
+    margin: 0 12%;
+    font-size: 2vh;
   }
 }
