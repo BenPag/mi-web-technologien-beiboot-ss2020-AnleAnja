@@ -6,7 +6,7 @@ import htmlBuilder from './helpers/htmlBuilder';
 import sizeCalculator from './helpers/sizeCalculator';
 
 if ('serviceWorker' in navigator) {
-    navigator.serviceWorker.register('/js/serviceWorker.js', { scope: '/' }).then(function(reg) {
+    navigator.serviceWorker.register('pwa/js/serviceWorker.js').then(function(reg) {
         if(reg.installing) {
             console.log('Service worker installing');
         } else if(reg.waiting) {
