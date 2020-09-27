@@ -12,20 +12,63 @@ $r20: 1.12;
   @return $value;
 }
 
+@function precision-round($float, $digits) {
+  $sass-precision: 5;
+
+  @if $digits > $sass-precision {
+    @warn "Sass sets default precision to #{$sass-precision} digits, and there is no way to change that for now."
+    + "The returned number will have #{$sass-precision} digits, even if you asked for `#{$digits}`."
+    + "See github.com/sass/sass/issues/1122 for further informations.";
+  }
+
+  $pow: pow(10, $digits);
+
+  @return round($float * $pow) / $pow;
+}
+
 @mixin margins {
-  @for $i from 1 through 12 {
-    .ml-#{$i} { margin-left: pow($r20 , $i) * 1px }
-    .mr-#{$i} { margin-right: pow($r20 , $i) * 1px; }
-    .mt-#{$i} { margin-top: pow($r20 , $i) * 1px; }
-    .mb-#{$i} { margin-bottom: pow($r20 , $i) * 1px; }
-    .mx-#{$i} { margin: pow($r20 , $i) * 1px 0; }
-    .my-#{$i} { margin: 0 pow($r20 , $i) * 1px; }
-    .ma-#{$i} { margin: pow($r20 , $i) * 1px; }
+  @for $i from 0 through 12 {
+    @if ($i == 0) {
+      $pxValue: 0 !important;
+      .ml-#{$i} { margin-left: $pxValue; }
+      .mr-#{$i} { margin-right: $pxValue;  }
+      .mt-#{$i} { margin-top: $pxValue;  }
+      .mb-#{$i} { margin-bottom: $pxValue; }
+      .mx-#{$i} { margin: $pxValue; }
+      .my-#{$i} { margin: $pxValue; }
+      .ma-#{$i} { margin: $pxValue;  }
+    } @else {
+      $pxValue: precision-round(pow($r20 , $i), 2) * 10px;
+      .ml-#{$i} { margin-left: $pxValue !important; }
+      .mr-#{$i} { margin-right: $pxValue !important; }
+      .mt-#{$i} { margin-top: $pxValue !important; }
+      .mb-#{$i} { margin-bottom: $pxValue !important; }
+      .mx-#{$i} { margin: 0 $pxValue !important; }
+      .my-#{$i} { margin: $pxValue 0 !important; }
+      .ma-#{$i} { margin: $pxValue !important; }
+    }
   }
 }
 
-@mixin fontSize {
-  @for $i from 1 through 12 {
-    .fs-#{$i} { margin-left: pow($r20 , $i) * 1px }
+@mixin paddings {
+  @for $i from 0 through 12 {
+    @if ($i == 0) {
+      .pl-#{$i} { padding-left: 0 !important; }
+      .pr-#{$i} { padding-right: 0 !important;  }
+      .pt-#{$i} { padding-top: 0 !important;  }
+      .pb-#{$i} { padding-bottom: 0 !important; }
+      .px-#{$i} { padding: 0 !important; }
+      .py-#{$i} { padding: 0 !important; }
+      .pa-#{$i} { padding: 0 !important;  }
+    } @else {
+      $pxValue: precision-round(pow($r20 , $i), 2) * 10px;
+      .pl-#{$i} { padding-left: $pxValue !important; }
+      .pr-#{$i} { padding-right: $pxValue !important; }
+      .pt-#{$i} { padding-top: $pxValue !important; }
+      .pb-#{$i} { padding-bottom: $pxValue !important; }
+      .px-#{$i} { padding: 0 $pxValue !important; }
+      .py-#{$i} { padding: $pxValue 0 !important; }
+      .pa-#{$i} { padding: $pxValue !important; }
+    }
   }
 }

@@ -42,7 +42,7 @@ export default {
     },
     getGradientOfColor(colors) {
         return `
-        radial-gradient(circle at center, ${this.getRgbaFromRgb(colors[0], 0.8)} 35%, transparent 67%),
+        radial-gradient(circle at center, ${this.getRgbaFromRgb(colors[0], 0.85)} 35%, transparent 67%),
         radial-gradient(circle at 25% 25%, ${this.getRgbaFromRgb(colors[2], 0.55)} 10%, transparent 25%),
         radial-gradient(circle at 25% 75%, ${this.getRgbaFromRgb(colors[4], 0.55)} 10%, transparent 25%),
         radial-gradient(circle at 75% 25%, ${this.getRgbaFromRgb(colors[3], 0.55)} 10%, transparent 25%),

@@ -1,8 +1,7 @@
 import images from './images';
-import config from './config';
+import config from '../config';
 const httpClient = require('axios').default;
 
-const useDummyApi = true;
 const apiBaseUrl = config.quotesApiUrl;
 const errorQuote =  {
     author: '',
@@ -69,9 +68,9 @@ function QuoteOfTheDay({contents, copyright}, image) {
 
 export default {
     getQuoteOfTheDay: async () => {
-        const response = useDummyApi ?
+        const response = config.useDummyQuoteApi ?
             await getDummyApiResult() :
-            await httpClient.get(`${apiBaseUrl}/qod`);
+            await httpClient.get(`${apiBaseUrl}/qod?category=${config.quoteCategory}&language=${config.quoteLanguage}`);
 
         const image = await images.getQuoteOfTheDayImage();
         return QuoteOfTheDay(response.data, image);

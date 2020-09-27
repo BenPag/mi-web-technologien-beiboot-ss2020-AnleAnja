@@ -1,22 +1,29 @@
 // regeneratorRuntime is needed for webpack, specifically for async / await
 // eslint-disable-next-line no-unused-vars
 import regeneratorRuntime from 'regenerator-runtime';
-import quotes from './quotes';
-import htmlBuilder from './htmlBuilder';
+import quotes from './apis/quotes';
+import htmlBuilder from './helpers/htmlBuilder';
+import sizeCalculator from './helpers/sizeCalculator';
 
-function onDeviceorientationChange(event) {
+function onResize(event) {
     console.log(event);
 }
 
-window.addEventListener('deviceorientation', onDeviceorientationChange, true);
+window.addEventListener('resize', onResize, true);
 
-quotes.getQuoteOfTheDay()
-    .then((qod) => {
-        const qodCard = htmlBuilder.getHtmlCardOfQuote(qod);
-        const qodDiv = document.getElementById('qod');
+async function render() {
+    try {
+        const quoteOfTheDay  = await quotes.getQuoteOfTheDay();
+        const htmlCard = htmlBuilder.getHtmlCardOfQuote(quoteOfTheDay);
+        const qodDiv = document.getElementById('qod-app');
         qodDiv.innerHTML = '';
-        qodDiv.append(qodCard);
-    })
-    .catch((error) => {
-        console.log(error);
-    });
+        qodDiv.append(htmlCard);
+
+        sizeCalculator.setCardPadding();
+        sizeCalculator.setFontSizes(quoteOfTheDay);
+    } catch (error) {
+        console.error(error);
+    }
+}
+
+render();
