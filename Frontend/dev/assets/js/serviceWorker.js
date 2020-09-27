@@ -5,7 +5,6 @@ const filesToCache = [
     '/mi-web-technologien-beiboot-ss2020-AnleAnja/pwa/js/main.min.js',
     '/mi-web-technologien-beiboot-ss2020-AnleAnja/pwa/css/styles.min.css',
     '/mi-web-technologien-beiboot-ss2020-AnleAnja/pwa/favicons/android-icon-192x192.png',
-    '/mi-web-technologien-beiboot-ss2020-AnleAnja/pwa/favicons/android-icon-192x192.png',
     '/mi-web-technologien-beiboot-ss2020-AnleAnja/pwa/favicons/apple-icon-57x57.png',
     '/mi-web-technologien-beiboot-ss2020-AnleAnja/pwa/favicons/apple-icon-60x60.png',
     '/mi-web-technologien-beiboot-ss2020-AnleAnja/pwa/favicons/apple-icon-72x72.png',
