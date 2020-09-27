@@ -78,9 +78,17 @@ self.addEventListener('activate', event => {
     );
 });
 
+const nexDay = new Date();
+nexDay.setHours(0);
+nexDay.setMinutes(nexDay.getMinutes() + 2);
+nexDay.setSeconds(0);
+nexDay.setMilliseconds(0);
+// nexDay.setDate(nexDay.getDate() + 1);
+
 setInterval(async () => {
-    console.log('update cache');
-    await caches.delete(staticCacheName);
-    const cache = await caches.open(staticCacheName);
-    await cache.addAll(filesToCache);
-}, 1000);
+    if (nexDay < new Date()) {
+        await caches.delete(staticCacheName);
+        const cache = await caches.open(staticCacheName);
+        await cache.addAll(staticCacheName);
+    }
+}, 1000 * 60);
