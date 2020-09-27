@@ -84,16 +84,13 @@ self.addEventListener('activate', event => {
 
 const nexDay = new Date();
 nexDay.setHours(0);
-nexDay.setMinutes(nexDay.getMinutes()  +1);
+nexDay.setMinutes(nexDay.getMinutes() + 1);
 nexDay.setSeconds(0);
 nexDay.setMilliseconds(0);
-// nexDay.setDate(nexDay.getDate() + 1);
+nexDay.setDate(nexDay.getDate() + 1);
 
 setInterval(async () => {
     if (nexDay < new Date()) {
         await caches.delete(staticCacheName);
-        const cache = await caches.open(staticCacheName);
-        await cache.addAll(filesToCache);
-        console.log('cache cleared');
     }
 }, 1000 * 60);
