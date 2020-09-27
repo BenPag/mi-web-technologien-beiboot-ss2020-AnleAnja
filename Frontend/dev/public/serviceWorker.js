@@ -40,16 +40,20 @@ self.addEventListener('fetch', event => {
         caches.match(event.request)
             .then(response => {
                 if (response) {
-                    console.log('Found ', event.request.url, ' in cache');
                     return response;
                 }
 
-                fetch(event.request).then(response => {
-                    return caches.open(staticCacheName).then(cache => {
-                        cache.put(event.request.url, response.clone());
-                        return response;
+                fetch(event.request)
+                    .then(response => {
+                        return caches.open(staticCacheName).then(cache => {
+                            cache.put(event.request.url, response.clone());
+                            return response;
+                        });
+                    })
+                    .catch(async () => {
+                        const cache = await caches.open(staticCacheName);
+                        await cache.match(event.request);
                     });
-                });
             }).catch(error => {
                 const errorHeadline = document.createElement('h1');
                 errorHeadline.innerText = 'Offline';
@@ -80,7 +84,7 @@ self.addEventListener('activate', event => {
 
 const nexDay = new Date();
 nexDay.setHours(0);
-nexDay.setMinutes(nexDay.getMinutes() + 2);
+nexDay.setMinutes(nexDay.getMinutes()  +1);
 nexDay.setSeconds(0);
 nexDay.setMilliseconds(0);
 // nexDay.setDate(nexDay.getDate() + 1);
@@ -90,5 +94,6 @@ setInterval(async () => {
         await caches.delete(staticCacheName);
         const cache = await caches.open(staticCacheName);
         await cache.addAll(filesToCache);
+        console.log('cache cleared');
     }
 }, 1000 * 60);

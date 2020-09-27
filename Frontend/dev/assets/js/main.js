@@ -42,4 +42,7 @@ async function render() {
 
 window.onload = async () => {
     await render();
+    setInterval(async () => {
+        await render();
+    }, 1000 * 60 * 60);
 };
