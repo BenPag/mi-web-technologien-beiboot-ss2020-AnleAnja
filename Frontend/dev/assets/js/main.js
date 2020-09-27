@@ -5,6 +5,20 @@ import quotes from './apis/quotes';
 import htmlBuilder from './helpers/htmlBuilder';
 import sizeCalculator from './helpers/sizeCalculator';
 
+if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.register('/js/serviceWorker.js', { scope: '/' }).then(function(reg) {
+        if(reg.installing) {
+            console.log('Service worker installing');
+        } else if(reg.waiting) {
+            console.log('Service worker installed');
+        } else if(reg.active) {
+            console.log('Service worker active');
+        }
+    }).catch(function(error) {
+        console.log('Registration failed with ' + error);
+    });
+}
+
 window.addEventListener('resize', async () => {
     const quoteOfTheDay = await quotes.getQuoteOfTheDay();
     sizeCalculator.setCardPadding();
@@ -26,4 +40,6 @@ async function render() {
     }
 }
 
-render();
+window.onload = async () => {
+    await render();
+};
