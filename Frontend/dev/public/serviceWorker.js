@@ -40,8 +40,9 @@ self.addEventListener('fetch', event => {
         }
 
         return fetch(event.request).then(response => {
+            let responseClone = response.clone();
             caches.open(staticCacheName).then(cache => {
-                cache.put(event.request, response.clone());
+                cache.put(event.request, responseClone);
             });
             return response;
         }).catch((error) => {
