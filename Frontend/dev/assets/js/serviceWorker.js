@@ -1,5 +1,4 @@
-// const staticCacheName = new Date().toLocaleDateString();
-const staticCacheName = new Date().toLocaleString();
+const staticCacheName = 'quoteOfTheDayCache';
 const filesToCache = [
     '/mi-web-technologien-beiboot-ss2020-AnleAnja/',
     '/mi-web-technologien-beiboot-ss2020-AnleAnja/pwa/manifest.json',
@@ -67,11 +66,18 @@ self.addEventListener('fetch', event => {
     );
 });
 
+const nexDay = new Date();
+nexDay.setHours(0);
+nexDay.setMinutes(0);
+nexDay.setSeconds(0);
+nexDay.setMilliseconds(0);
+// nexDay.setDate(nexDay.getDate() + 1);
+
 self.addEventListener('activate', event => {
     event.waitUntil(
         caches.keys().then(cacheNames => {
             return Promise.all(cacheNames.map(cacheName => {
-                if (cacheName !== staticCacheName) {
+                if (cacheName !== staticCacheName || nexDay < new Date()) {
                     return caches.delete(cacheName);
                 }
             }));
