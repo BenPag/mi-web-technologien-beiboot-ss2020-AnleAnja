@@ -66,21 +66,21 @@ self.addEventListener('fetch', event => {
     );
 });
 
-const nexDay = new Date();
-nexDay.setHours(0);
-nexDay.setMinutes(0);
-nexDay.setSeconds(0);
-nexDay.setMilliseconds(0);
-// nexDay.setDate(nexDay.getDate() + 1);
-
 self.addEventListener('activate', event => {
     event.waitUntil(
         caches.keys().then(cacheNames => {
             return Promise.all(cacheNames.map(cacheName => {
-                if (cacheName !== staticCacheName || nexDay < new Date()) {
+                if (cacheName !== staticCacheName) {
                     return caches.delete(cacheName);
                 }
             }));
         })
     );
 });
+
+setInterval(async () => {
+    console.log('update cache');
+    await caches.delete(staticCacheName);
+    const cache = await caches.open(staticCacheName);
+    await cache.addAll(filesToCache);
+}, 1000);
