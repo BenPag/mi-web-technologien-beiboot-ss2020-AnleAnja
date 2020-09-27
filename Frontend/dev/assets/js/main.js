@@ -5,11 +5,11 @@ import quotes from './apis/quotes';
 import htmlBuilder from './helpers/htmlBuilder';
 import sizeCalculator from './helpers/sizeCalculator';
 
-function onResize(event) {
-    console.log(event);
-}
-
-window.addEventListener('resize', onResize, true);
+window.addEventListener('resize', async () => {
+    const quoteOfTheDay = await quotes.getQuoteOfTheDay();
+    sizeCalculator.setCardPadding();
+    sizeCalculator.setFontSizes(quoteOfTheDay);
+}, false);
 
 async function render() {
     try {

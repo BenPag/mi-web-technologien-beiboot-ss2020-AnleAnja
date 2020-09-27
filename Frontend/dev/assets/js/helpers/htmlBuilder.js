@@ -1,7 +1,7 @@
 import colors from './colors';
 
 function getCardBackground({path}) {
-    return `url('${path}') center center / cover`;
+    return `url('${path}')`;
 }
 
 function getQuotationTextBox({date, quote, author}) {
@@ -31,9 +31,7 @@ export default {
     getHtmlCardOfQuote(quote) {
         const card = document.createElement('div');
         card.className = 'card';
-        card.style.background  = getCardBackground(quote.background);
-        card.style.height = `${window.innerHeight}px`;
-        card.style.width = `${window.innerWidth}px`;
+        card.style.backgroundImage = getCardBackground(quote.background);
 
         const cardBody = document.createElement('div');
         cardBody.className = 'card-body';
