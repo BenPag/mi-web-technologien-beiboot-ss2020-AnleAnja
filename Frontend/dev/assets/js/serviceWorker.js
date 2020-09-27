@@ -89,6 +89,6 @@ setInterval(async () => {
     if (nexDay < new Date()) {
         await caches.delete(staticCacheName);
         const cache = await caches.open(staticCacheName);
-        await cache.addAll(staticCacheName);
+        await cache.addAll(filesToCache);
     }
 }, 1000 * 60);
