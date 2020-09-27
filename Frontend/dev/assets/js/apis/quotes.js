@@ -66,7 +66,6 @@ function QuoteOfTheDay({contents, copyright}, image) {
     return quoteOfDay;
 }
 
-let cachedQuoteOfTheDay = undefined;
 export default {
     getQuoteOfTheDay: async () => {
         const response = config.useDummyQuoteApi ?
@@ -74,6 +73,6 @@ export default {
             await httpClient.get(`${apiBaseUrl}/qod?category=${config.quoteCategory}&language=${config.quoteLanguage}`);
 
         const image = await images.getQuoteOfTheDayImage();
-        return cachedQuoteOfTheDay || (cachedQuoteOfTheDay = QuoteOfTheDay(response.data, image));
+        return QuoteOfTheDay(response.data, image);
     }
 };
