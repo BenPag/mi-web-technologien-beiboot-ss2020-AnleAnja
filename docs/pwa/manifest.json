@@ -4,7 +4,7 @@
   "theme_color": "#73a1b2",
   "background_color": "#d6e5e5",
   "display": "fullscreen",
-  "start_url": "/",
+  "start_url": "https://benpag.github.io/mi-web-technologien-beiboot-ss2020-AnleAnja/",
   "icons": [
     {
       "src": "favicons/favicon-32x32.png",
