@@ -22,7 +22,7 @@ module.exports = {
     plugins: [
         new CopyPlugin({
             patterns: [
-                { from: __dirname + '/assets/js/serviceWorker.js', to: __dirname + '/public/js/serviceWorker.js' },
+                { from: __dirname + '/assets/js/serviceWorker.js', to: __dirname + '/public/serviceWorker.js' },
                 { from: __dirname + '/assets/manifest.json', to: __dirname + '/public/manifest.json' },
                 { from: __dirname + '/views/index.html', to: __dirname + '/public/index.html' },
             ],
