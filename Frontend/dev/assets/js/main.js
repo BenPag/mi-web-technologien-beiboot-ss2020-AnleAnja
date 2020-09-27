@@ -6,7 +6,7 @@ import htmlBuilder from './helpers/htmlBuilder';
 import sizeCalculator from './helpers/sizeCalculator';
 
 if ('serviceWorker' in navigator) {
-    navigator.serviceWorker.register('serviceWorker.js', { scope: '/mi-web-technologien-beiboot-ss2020-AnleAnja' }).then(function(reg) {
+    navigator.serviceWorker.register('/mi-web-technologien-beiboot-ss2020-AnleAnja/serviceWorker.js', { scope: '/mi-web-technologien-beiboot-ss2020-AnleAnja/' }).then(function(reg) {
         if(reg.installing) {
             console.log('Service worker installing');
         } else if(reg.waiting) {
