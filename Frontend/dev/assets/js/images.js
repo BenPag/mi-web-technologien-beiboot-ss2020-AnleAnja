@@ -1,6 +1,7 @@
+import config from './config';
 const httpClient = require('axios').default;
 
-const apiBaseUrl = 'http://localhost:3000';
+const apiBaseUrl = config.imagesApiUrl;
 
 export default {
     getQuoteOfTheDayImage: async () => {

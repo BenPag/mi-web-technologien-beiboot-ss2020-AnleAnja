@@ -1,8 +1,9 @@
-const httpClient = require('axios').default;
 import images from './images';
+import config from './config';
+const httpClient = require('axios').default;
 
 const useDummyApi = true;
-const apiBaseUrl = 'https://quotes.rest';
+const apiBaseUrl = config.quotesApiUrl;
 const errorQuote =  {
     author: '',
     background: '',
