@@ -28,58 +28,48 @@ const filesToCache = [
 ];
 
 self.addEventListener('install', event => {
-    event.waitUntil(
-        caches.open(staticCacheName).then(cache => {
-            return cache.addAll(filesToCache);
-        })
-    );
+    event.waitUntil(caches.open(staticCacheName).then(cache => {
+        return cache.addAll(filesToCache);
+    }));
 });
 
 self.addEventListener('fetch', event => {
-    event.respondWith(
-        caches.match(event.request)
-            .then(response => {
-                if (response) {
-                    return response;
-                }
+    event.respondWith(caches.match(event.request).then(response => {
+        if (response !== undefined) {
+            return response;
+        }
 
-                fetch(event.request)
-                    .then(response => {
-                        return caches.open(staticCacheName).then(cache => {
-                            cache.put(event.request.url, response.clone());
-                            return response;
-                        });
-                    })
-                    .catch(async () => {
-                        const cache = await caches.open(staticCacheName);
-                        await cache.match(event.request);
-                    });
-            }).catch(error => {
-                const errorHeadline = document.createElement('h1');
-                errorHeadline.innerText = 'Offline';
+        return fetch(event.request).then(response => {
+            caches.open(staticCacheName).then(cache => {
+                cache.put(event.request, response.clone());
+            });
+            return response;
+        }).catch((error) => {
+            console.log(error);
+        });
+    }).catch(error => {
+        const errorHeadline = document.createElement('h1');
+        errorHeadline.innerText = 'Offline';
 
-                const errorMessage= document.createElement('p');
-                errorMessage.innerText = 'Your device has no internet connection :(';
+        const errorMessage= document.createElement('p');
+        errorMessage.innerText = 'Your device has no internet connection :(';
 
-                const qodDiv = document.getElementById('qod-app');
-                qodDiv.innerHTML = '';
-                qodDiv.append(errorHeadline, errorMessage);
+        const qodDiv = document.getElementById('qod-app');
+        qodDiv.innerHTML = '';
+        qodDiv.append(errorHeadline, errorMessage);
 
-                console.log(error);
-            })
-    );
+        console.log(error);
+    }));
 });
 
 self.addEventListener('activate', event => {
-    event.waitUntil(
-        caches.keys().then(cacheNames => {
-            return Promise.all(cacheNames.map(cacheName => {
-                if (cacheName !== staticCacheName) {
-                    return caches.delete(cacheName);
-                }
-            }));
-        })
-    );
+    event.waitUntil(caches.keys().then(cacheNames => {
+        return Promise.all(cacheNames.map(cacheName => {
+            if (cacheName !== staticCacheName) {
+                return caches.delete(cacheName);
+            }
+        }));
+    }));
 });
 
 const nexDay = new Date();
@@ -92,5 +82,7 @@ nexDay.setDate(nexDay.getDate() + 1);
 setInterval(async () => {
     if (nexDay < new Date()) {
         await caches.delete(staticCacheName);
+        const cache = await caches.open(staticCacheName);
+        await cache.addAll(filesToCache);
     }
 }, 1000 * 60);
