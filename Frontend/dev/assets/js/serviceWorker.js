@@ -1,4 +1,5 @@
-const staticCacheName = 'pwa-cache-v1';
+// const staticCacheName = new Date().toLocaleDateString();
+const staticCacheName = new Date().toLocaleString();
 const filesToCache = [
     '/mi-web-technologien-beiboot-ss2020-AnleAnja/',
     '/mi-web-technologien-beiboot-ss2020-AnleAnja/pwa/manifest.json',
