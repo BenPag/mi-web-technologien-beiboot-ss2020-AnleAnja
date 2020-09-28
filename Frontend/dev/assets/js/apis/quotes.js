@@ -68,10 +68,14 @@ function QuoteOfTheDay({contents, copyright}, image) {
 
 export default {
     getQuoteOfTheDay: async () => {
-        const response = config.useDummyQuoteApi ?
-            await getDummyApiResult() :
-            await httpClient.get(`${apiBaseUrl}/qod?category=${config.quoteCategory}&language=${config.quoteLanguage}`);
-
+        let response;
+        try {
+            response = config.useDummyQuoteApi ?
+                await getDummyApiResult() :
+                await httpClient.get(`${apiBaseUrl}/qod?category=${config.quoteCategory}&language=${config.quoteLanguage}`);
+        } catch {
+            response = await getDummyApiResult();
+        }
         const image = await images.getQuoteOfTheDayImage();
         return QuoteOfTheDay(response.data, image);
     }

@@ -71,6 +71,7 @@ self.addEventListener('activate', event => {
             }
         }));
     }));
+    event.waitUntil(clients.claim());
 });
 
 const nexDay = new Date();
